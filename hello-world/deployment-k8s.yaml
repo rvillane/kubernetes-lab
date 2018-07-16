@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-app
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: hello-world
+      track: development
+  template:
+    metadata:
+      labels:
+        app: hello-world
+        track: development
+    spec:
+      containers:
+        - name: hello-world
+          imagePullPolicy: Always
+          image: "gcr.io/k8s-sandbox-198803/hello-world:latest"
+          env:
+          - name: ENVIRONMENT
+            value: "DEVELOPMENT"
+          - name: DEBUG
+            value: "true"
+          ports:
+          - name: http
+            containerPort: 8080
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "hello-world-app"
+spec:
+  selector:
+    app: "hello-world"
+    track: "development"
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  sessionAffinity: None

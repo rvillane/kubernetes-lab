@@ -1,0 +1,8 @@
+gcloud config set account rvillane.cr@gmail.com
+gcloud config set compute/region us-east1
+gcloud config set compute/zone us-east1-b
+gcloud config set project k8s-sandbox-198803
+#gcloud config set container/cluster llb-dev-be
+#gcloud container clusters get-credentials llb-dev-be
+#kubectl cluster-info
+#kubectl get pods

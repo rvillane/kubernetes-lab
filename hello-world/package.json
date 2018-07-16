@@ -1,0 +1,13 @@
+{
+  "name": "hello-world",
+  "description": "Simple dockerized nodeJS app",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "hapi": "^17.5.1"
+  }
+}
